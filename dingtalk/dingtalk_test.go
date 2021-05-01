@@ -16,6 +16,5 @@ func ExampleNewReporter() {
 		)); err != nil {
 		log.Fatalf("report the message error: %s", err)
 	}
-	log.Printf("ok")
-	// Output: ok
+	// Output:
 }
