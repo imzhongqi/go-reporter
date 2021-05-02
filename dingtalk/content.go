@@ -50,13 +50,16 @@ type link struct {
 	MessageUrl string `json:"messageUrl"`
 }
 
-func NewLink(title, text, picUrl, MessageUrl string) Content {
-	return &link{
+func NewLink(title, text, MessageUrl string, picUrl ...string) Content {
+	l := &link{
 		Title:      title,
 		Text:       text,
-		PicUrl:     picUrl,
 		MessageUrl: MessageUrl,
 	}
+	if len(picUrl) > 0 && picUrl[0] != "" {
+		l.PicUrl = picUrl[0]
+	}
+	return l
 }
 
 func (l *link) Type() string {
