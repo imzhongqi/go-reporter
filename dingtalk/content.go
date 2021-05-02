@@ -5,6 +5,24 @@ type Content interface {
 	Body() interface{}
 }
 
+type text struct {
+	Content string `json:"content"`
+}
+
+func NewText(content string) Content {
+	return &text{
+		Content: content,
+	}
+}
+
+func (t *text) Type() string {
+	return "text"
+}
+
+func (t *text) Body() interface{} {
+	return t
+}
+
 type markdown struct {
 	Title string `json:"title"`
 	Text  string `json:"text"`
@@ -23,24 +41,6 @@ func (m *markdown) Type() string {
 
 func (m *markdown) Body() interface{} {
 	return m
-}
-
-type text struct {
-	Content string `json:"content"`
-}
-
-func NewText(content string) Content {
-	return &text{
-		Content: content,
-	}
-}
-
-func (t *text) Type() string {
-	return "text"
-}
-
-func (t *text) Body() interface{} {
-	return t
 }
 
 type link struct {

@@ -27,41 +27,41 @@ func (m *message) Body() interface{} {
 	return msg
 }
 
-type Options struct {
+type MessageOptions struct {
 	at *atOptions
 }
 
-type Option func(o *Options)
+type MessageOption func(o *MessageOptions)
 
-func lazyInitAtOpts(o *Options) {
+func lazyInitAtOpts(o *MessageOptions) {
 	if o.at == nil {
 		o.at = new(atOptions)
 	}
 }
 
-func AtAll() Option {
-	return func(o *Options) {
+func AtAll() MessageOption {
+	return func(o *MessageOptions) {
 		lazyInitAtOpts(o)
 		o.at.IsAtAll = true
 	}
 }
 
-func AtUserIds(userIds ...string) Option {
-	return func(o *Options) {
+func AtUserIds(userIds ...string) MessageOption {
+	return func(o *MessageOptions) {
 		lazyInitAtOpts(o)
 		o.at.AtUserIds = userIds
 	}
 }
 
-func AtMobiles(mobiles ...string) Option {
-	return func(o *Options) {
+func AtMobiles(mobiles ...string) MessageOption {
+	return func(o *MessageOptions) {
 		lazyInitAtOpts(o)
 		o.at.AtMobiles = mobiles
 	}
 }
 
-func NewMessage(content Content, opts ...Option) reporter.Message {
-	options := &Options{}
+func NewMessage(content Content, opts ...MessageOption) reporter.Message {
+	options := &MessageOptions{}
 	for _, o := range opts {
 		o(options)
 	}

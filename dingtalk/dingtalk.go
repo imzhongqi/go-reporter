@@ -20,16 +20,18 @@ import (
 )
 
 type dingTalk struct {
-	cli      *http.Client
+	cli *http.Client
+
 	endpoint string
 	secret   []byte
 }
 
-func NewReporter(endpoint string, secret string) reporter.Reporter {
+func NewReporter(endpoint string, opts ...Option) reporter.Reporter {
+	opt := newOptions(opts...)
 	return &dingTalk{
-		cli:      &http.Client{},
+		cli:      opt.cli,
 		endpoint: endpoint,
-		secret:   []byte(secret),
+		secret:   opt.secret,
 	}
 }
 
